@@ -21,6 +21,9 @@ namespace EFCoreMovies
             modelBuilder.Entity<Cinema>().ToTable(name: "Cinemas", schema: mov)
                                          .HasIndex(p => p.Name);
             
+            modelBuilder.Entity<CinemaHall>().ToTable(name: "CinemaHalls", schema: mov)
+                                             .HasIndex(p => p.CinemaId);
+            
             modelBuilder.Entity<CinemaOffer>().ToTable(name: "CinemaOffers", schema: mov)
                                               .HasIndex(p => p.CinemaId);
             modelBuilder.Entity<CinemaOffer>().HasIndex(p => p.BeginDate);
@@ -42,6 +45,7 @@ namespace EFCoreMovies
 
         public DbSet<Actor> Actors { get; set; }
         public DbSet<Cinema> Cinemas { get; set; }
+        public DbSet<CinemaHall> CinemaHalls { get; set; }
         public DbSet<CinemaOffer> CinemaOffers { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Movie> Movies { get; set; }

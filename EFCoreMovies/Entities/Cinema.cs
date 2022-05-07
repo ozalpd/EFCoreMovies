@@ -6,6 +6,11 @@ namespace EFCoreMovies.Entities
 {
     public class Cinema
     {
+        public Cinema()
+        {
+            CinemaHalls = new HashSet<CinemaHall>();
+        }
+
         public int Id { get; set; }
 
         [Required]
@@ -17,6 +22,9 @@ namespace EFCoreMovies.Entities
 
         [Precision(precision: 8, scale: 4)]
         public decimal TicketPrice { get; set; }
+
+
+        public ICollection<CinemaHall> CinemaHalls { get; set; }
 
         //EF Core will detect that this is a one-to-one relationship to CinemaOffers table
         public CinemaOffer CinemaOffer { get; set; }
