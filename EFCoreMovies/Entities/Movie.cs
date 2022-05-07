@@ -5,6 +5,12 @@ namespace EFCoreMovies.Entities
 {
     public class Movie
     {
+        public Movie()
+        {
+            CinemaHalls = new HashSet<CinemaHall>();
+            Genres = new HashSet<Genre>();
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -19,5 +25,11 @@ namespace EFCoreMovies.Entities
 
         [Column(TypeName = "Date")]
         public DateTime? ReleaseDate { get; set; }
+
+        //EF Core will detect that this is a many-to-many relationship to CinemaHalls table
+        public ICollection<CinemaHall> CinemaHalls { get; set; }
+
+        //EF Core will detect that this is a many-to-many relationship to Genres table
+        public ICollection<Genre> Genres { get; set; }
     }
 }
