@@ -9,6 +9,7 @@ namespace EFCoreMovies.Entities
         {
             CinemaHalls = new HashSet<CinemaHall>();
             Genres = new HashSet<Genre>();
+            MoviesActors = new HashSet<MovieActor>();
         }
 
         [Key]
@@ -31,5 +32,7 @@ namespace EFCoreMovies.Entities
 
         //EF Core will detect that this is a many-to-many relationship to Genres table
         public ICollection<Genre> Genres { get; set; }
+
+        public ICollection<MovieActor> MoviesActors { get; set; }
     }
 }

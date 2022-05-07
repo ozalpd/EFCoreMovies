@@ -5,6 +5,12 @@ namespace EFCoreMovies.Entities
 {
     public class Actor
     {
+        public Actor()
+        {
+            MoviesActors = new HashSet<MovieActor>();
+        }
+
+        [Key]
         public int Id { get; set; }
 
         [Required]
@@ -15,5 +21,6 @@ namespace EFCoreMovies.Entities
         [Column(TypeName = "Date")]
         public DateTime? DateOfBirth { get; set; }
 
+        public ICollection<MovieActor> MoviesActors { get; set; }
     }
 }

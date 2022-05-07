@@ -20,16 +20,21 @@ namespace EFCoreMovies
 
             modelBuilder.Entity<Cinema>().ToTable(name: "Cinemas", schema: mov)
                                          .HasIndex(p => p.Name);
-            
+
             modelBuilder.Entity<CinemaHall>().ToTable(name: "CinemaHalls", schema: mov)
                                              .HasIndex(p => p.CinemaId);
-            
+
             modelBuilder.Entity<CinemaOffer>().ToTable(name: "CinemaOffers", schema: mov)
                                               .HasIndex(p => p.CinemaId);
             modelBuilder.Entity<CinemaOffer>().HasIndex(p => p.BeginDate);
 
             modelBuilder.Entity<Genre>().ToTable(name: "Genres", schema: mov)
                                         .HasIndex(p => p.Name);
+
+            modelBuilder.Entity<MovieActor>().ToTable(name: "MoviesActors", schema: mov)
+                                             .HasKey(p => new { p.ActorId, p.MovieId });
+            modelBuilder.Entity<MovieActor>().HasIndex(p => p.CharacterName);
+            modelBuilder.Entity<MovieActor>().HasIndex(p => p.DisplayOrder);
 
             modelBuilder.Entity<Movie>().ToTable(name: "Movies", schema: mov)
                                         .HasIndex(p => p.Title);
@@ -40,6 +45,7 @@ namespace EFCoreMovies
             //It seems a good idea to keep property settings seperate from entities
             modelBuilder.Entity<CinemaHall>().Property(p => p.CinemaHallType)
                                              .HasDefaultValue(CinemaHallType.TwoDimensions);
+            modelBuilder.Entity<MovieActor>().Property(p => p.DisplayOrder).HasDefaultValue(10000);
             modelBuilder.Entity<Movie>().Property(p => p.PosterURL).IsUnicode(false);
 
             //It's better way to use data annotations to set required fields or set a max lenght.
@@ -52,6 +58,7 @@ namespace EFCoreMovies
         public DbSet<CinemaHall> CinemaHalls { get; set; }
         public DbSet<CinemaOffer> CinemaOffers { get; set; }
         public DbSet<Genre> Genres { get; set; }
+        public DbSet<MovieActor> MoviesActors { get; set; }
         public DbSet<Movie> Movies { get; set; }
     }
 }
