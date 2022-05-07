@@ -1,5 +1,6 @@
 ﻿using EFCoreMovies.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace EFCoreMovies
 {
@@ -20,40 +21,19 @@ namespace EFCoreMovies
         {
             base.OnModelCreating(modelBuilder);
 
-            //This a is better way to set a schema than using data annotations.
+            //Brings and applies all entity configuration classes when model builder generates a migration
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            //This a is better way to set a schema here than using data annotations.
             //Because all tables without a default schema (or without a default name) can be seen in one place.
-            modelBuilder.Entity<Actor>().ToTable(name: "Actors", schema: mov)
-                                        .HasIndex(p => p.Name);
-
-            modelBuilder.Entity<Cinema>().ToTable(name: "Cinemas", schema: mov)
-                                         .HasIndex(p => p.Name);
-
-            modelBuilder.Entity<CinemaHall>().ToTable(name: "CinemaHalls", schema: mov)
-                                             .HasIndex(p => p.CinemaId);
-
-            modelBuilder.Entity<CinemaOffer>().ToTable(name: "CinemaOffers", schema: mov)
-                                              .HasIndex(p => p.CinemaId);
-            modelBuilder.Entity<CinemaOffer>().HasIndex(p => p.BeginDate);
-
-            modelBuilder.Entity<Genre>().ToTable(name: "Genres", schema: mov)
-                                        .HasIndex(p => p.Name);
-
-            modelBuilder.Entity<MovieActor>().ToTable(name: "MoviesActors", schema: mov)
-                                             .HasKey(p => new { p.ActorId, p.MovieId });
-            modelBuilder.Entity<MovieActor>().HasIndex(p => p.CharacterName);
-            modelBuilder.Entity<MovieActor>().HasIndex(p => p.DisplayOrder);
-
-            modelBuilder.Entity<Movie>().ToTable(name: "Movies", schema: mov)
-                                        .HasIndex(p => p.Title);
-            modelBuilder.Entity<Movie>().HasIndex(p => p.ReleaseDate);
-
-
-
-            //It seems a good idea to keep property settings seperate from entities
-            modelBuilder.Entity<CinemaHall>().Property(p => p.CinemaHallType)
-                                             .HasDefaultValue(CinemaHallType.TwoDimensions);
-            modelBuilder.Entity<MovieActor>().Property(p => p.DisplayOrder).HasDefaultValue(10000);
-            modelBuilder.Entity<Movie>().Property(p => p.PosterURL).IsUnicode(false);
+            //So below lines deliberately kept here instead of moving into IEntityTypeConfiguration classes.
+            modelBuilder.Entity<Actor>().ToTable(name: "Actors", schema: mov);
+            modelBuilder.Entity<Cinema>().ToTable(name: "Cinemas", schema: mov);
+            modelBuilder.Entity<CinemaHall>().ToTable(name: "CinemaHalls", schema: mov);
+            modelBuilder.Entity<CinemaOffer>().ToTable(name: "CinemaOffers", schema: mov);
+            modelBuilder.Entity<Genre>().ToTable(name: "Genres", schema: mov);
+            modelBuilder.Entity<MovieActor>().ToTable(name: "MoviesActors", schema: mov);
+            modelBuilder.Entity<Movie>().ToTable(name: "Movies", schema: mov);
 
             //It's better way to use data annotations to set required fields or set a max lenght.
             //Because annotations can be used in data validations and front end

@@ -20,7 +20,6 @@ namespace EFCoreMovies.Entities
         public Point Location { get; set; }
 
 
-        [Precision(precision: 8, scale: 4)]
         public decimal TicketPrice { get; set; }
 
 
