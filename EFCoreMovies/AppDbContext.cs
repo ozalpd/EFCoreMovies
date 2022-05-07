@@ -36,6 +36,10 @@ namespace EFCoreMovies
             modelBuilder.Entity<Movie>().HasIndex(p => p.ReleaseDate);
 
 
+
+            //It seems a good idea to keep property settings seperate from entities
+            modelBuilder.Entity<CinemaHall>().Property(p => p.CinemaHallType)
+                                             .HasDefaultValue(CinemaHallType.TwoDimensions);
             modelBuilder.Entity<Movie>().Property(p => p.PosterURL).IsUnicode(false);
 
             //It's better way to use data annotations to set required fields or set a max lenght.
