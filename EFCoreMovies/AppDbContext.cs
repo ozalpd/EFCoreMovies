@@ -9,6 +9,13 @@ namespace EFCoreMovies
 
         public AppDbContext(DbContextOptions options) : base(options) { }
 
+        protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+        {
+            //We use SQL's DateTime rarely, so I set default column type as date
+            configurationBuilder.Properties<DateTime>().HaveColumnType("Date");
+        }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

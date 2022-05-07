@@ -7,10 +7,10 @@ namespace EFCoreMovies.Entities
     {
         public int Id { get; set; }
 
-        [Column(TypeName = "Date")]
+        //[Column(TypeName = "Date")]
         public DateTime BeginDate { get; set; }
 
-        [Column(TypeName = "Date")]
+        //[Column(TypeName = "Date")]
         public DateTime? EndDate { get; set; }
 
         [Precision(precision: 8, scale: 4)]

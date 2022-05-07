@@ -24,7 +24,7 @@ namespace EFCoreMovies.Entities
         [MaxLength(500)]
         public string PosterURL { get; set; }
 
-        [Column(TypeName = "Date")]
+        //[Column(TypeName = "Date")]
         public DateTime? ReleaseDate { get; set; }
 
         //EF Core will detect that this is a many-to-many relationship to CinemaHalls table
