@@ -1,13 +1,23 @@
-namespace EFCoreMovies
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace EFCoreMovies.Entities
 {
-    public class WeatherForecast
+    public class Movie
     {
-        public DateTime Date { get; set; }
+        [Key]
+        public int Id { get; set; }
 
-        public int TemperatureC { get; set; }
+        [Required()]
+        [MaxLength(200)]
+        public string Title { get; set; }
 
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+        public bool InCinemas { get; set; }
 
-        public string? Summary { get; set; }
+        [MaxLength(500)]
+        public string PosterURL { get; set; }
+
+        [Column(TypeName = "Date")]
+        public DateTime? ReleaseDate { get; set; }
     }
 }

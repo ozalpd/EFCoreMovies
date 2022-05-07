@@ -21,14 +21,21 @@ namespace EFCoreMovies
                                          .HasIndex(p => p.Name);
             modelBuilder.Entity<Genre>().ToTable(name: "Genres", schema: mov)
                                         .HasIndex(p => p.Name);
+            modelBuilder.Entity<Movie>().ToTable(name: "Movies", schema: mov)
+                                        .HasIndex(p => p.Title);
+            modelBuilder.Entity<Movie>().HasIndex(p => p.ReleaseDate);
 
+
+            modelBuilder.Entity<Movie>().Property(p => p.PosterURL).IsUnicode(false);
 
             //It's better way to use data annotations to set required fields or set a max lenght.
+            //Because annotations can be used in data validations and front end
             //modelBuilder.Entity<Genre>().Property(p => p.Name).IsRequired();
         }
 
         public DbSet<Actor> Actors { get; set; }
         public DbSet<Cinema> Cinemas { get; set; }
         public DbSet<Genre> Genres { get; set; }
+        public DbSet<Movie> Movies { get; set; }
     }
 }
