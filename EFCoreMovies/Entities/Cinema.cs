@@ -18,5 +18,7 @@ namespace EFCoreMovies.Entities
         [Precision(precision: 8, scale: 4)]
         public decimal TicketPrice { get; set; }
 
+        //EF Core will detect that this is a one-to-one relationship to CinemaOffers table
+        public CinemaOffer CinemaOffer { get; set; }
     }
 }
