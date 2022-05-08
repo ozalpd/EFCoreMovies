@@ -1,0 +1,81 @@
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace EFCoreMovies.Entities.Configs
+{
+    public static class SeedSampleData
+    {
+        public static void Seed(ModelBuilder modelBuilder)
+        {
+            var action = new Genre { Id = 1, Name = "Action" };
+            var animation = new Genre { Id = 2, Name = "Animation" };
+            var comedy = new Genre { Id = 3, Name = "Comedy" };
+            var sciFi = new Genre { Id = 4, Name = "Science Fiction" };
+            var drama = new Genre { Id = 5, Name = "Drama" };
+            var romance = new Genre { Id = 6, Name = "Romance" };
+
+
+            modelBuilder.Entity<Genre>().HasData(action, animation, comedy, sciFi, drama, romance);
+
+            var tomHolland = new Actor() { Id = 1, Name = "Tom Holland", DateOfBirth = new DateTime(1996, 6, 1), Biography = "Thomas Stanley Holland (born 1 June 1996) is an English actor. He is recipient of several accolades, including the 2017 BAFTA Rising Star Award. Holland began his acting career as a child actor on the West End stage in Billy Elliot the Musical at the Victoria Palace Theatre in 2008, playing a supporting part" };
+            var samuelJackson = new Actor() { Id = 2, Name = "Samuel L. Jackson", DateOfBirth = new DateTime(1948, 12, 21), Biography = "Samuel Leroy Jackson (born December 21, 1948) is an American actor and producer. One of the most widely recognized actors of his generation, the films in which he has appeared have collectively grossed over $27 billion worldwide, making him the highest-grossing actor of all time (excluding cameo appearances and voice roles)." };
+            var robertDowney = new Actor() { Id = 3, Name = "Robert Downey Jr.", DateOfBirth = new DateTime(1965, 4, 4), Biography = "Robert John Downey Jr. (born April 4, 1965) is an American actor and producer. His career has been characterized by critical and popular success in his youth, followed by a period of substance abuse and legal troubles, before a resurgence of commercial success later in his career." };
+            var chrisEvans = new Actor() { Id = 4, Name = "Chris Evans", DateOfBirth = new DateTime(1981, 06, 13) };
+            var laRoca = new Actor() { Id = 5, Name = "Dwayne Johnson", DateOfBirth = new DateTime(1972, 5, 2) };
+            var auliCravalho = new Actor() { Id = 6, Name = "Auli'i Cravalho", DateOfBirth = new DateTime(2000, 11, 22) };
+            var scarlettJohansson = new Actor() { Id = 7, Name = "Scarlett Johansson", DateOfBirth = new DateTime(1984, 11, 22) };
+            var keanuReeves = new Actor() { Id = 8, Name = "Keanu Reeves", DateOfBirth = new DateTime(1964, 9, 2) };
+
+            modelBuilder.Entity<Actor>().HasData(tomHolland, samuelJackson,
+                            robertDowney, chrisEvans, laRoca, auliCravalho, scarlettJohansson, keanuReeves);
+
+            var avengers = new Movie()
+            {
+                Id = 1,
+                Title = "Avengers",
+                InCinemas = false,
+                ReleaseDate = new DateTime(2012, 4, 11),
+                PosterURL = "https://upload.wikimedia.org/wikipedia/en/8/8a/The_Avengers_%282012_film%29_poster.jpg",
+            };
+
+            var moviesId = "MoviesId";
+
+            var entityGenreMovie = "GenreMovie";
+            var genresId = "GenresId";
+
+            modelBuilder.Entity(entityGenreMovie).HasData(
+                new Dictionary<string, object>
+                {
+                    [genresId] = action.Id,
+                    [moviesId] = avengers.Id
+                },
+                 new Dictionary<string, object>
+                 {
+                     [genresId] = sciFi.Id,
+                     [moviesId] = avengers.Id
+                 }
+                );
+
+            var coco = new Movie()
+            {
+                Id = 2,
+                Title = "Coco",
+                InCinemas = false,
+                ReleaseDate = new DateTime(2017, 11, 22),
+                PosterURL = "https://upload.wikimedia.org/wikipedia/en/9/98/Coco_%282017_film%29_poster.jpg"
+            };
+
+            modelBuilder.Entity(entityGenreMovie).HasData(
+               new Dictionary<string, object> { [genresId] = animation.Id, [moviesId] = coco.Id }
+           );
+
+            var noWayHome = new Movie()
+            {
+                Id = 3,
+                Title = "Spider-Man: No way home",
+                InCinemas = false,
+                ReleaseDate = new DateTime(2022, 12, 17),
+                PosterURL = "https://upload.wikimedia.org/wikipedia/en/0/00/Spider-Man_No_Way_Home_poster.jpg"
+            };
+        }
+    }
+}

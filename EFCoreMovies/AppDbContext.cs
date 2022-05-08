@@ -1,4 +1,5 @@
 ﻿using EFCoreMovies.Entities;
+using EFCoreMovies.Entities.Configs;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -38,6 +39,9 @@ namespace EFCoreMovies
             //It's better way to use data annotations to set required fields or set a max lenght.
             //Because annotations can be used in data validations and front end
             //modelBuilder.Entity<Genre>().Property(p => p.Name).IsRequired();
+
+
+            SeedSampleData.Seed(modelBuilder);
         }
 
         public DbSet<Actor> Actors { get; set; }
