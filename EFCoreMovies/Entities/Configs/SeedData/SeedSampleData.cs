@@ -76,6 +76,104 @@ namespace EFCoreMovies.Entities.Configs
                 ReleaseDate = new DateTime(2022, 12, 17),
                 PosterURL = "https://upload.wikimedia.org/wikipedia/en/0/00/Spider-Man_No_Way_Home_poster.jpg"
             };
+
+            modelBuilder.Entity(entityGenreMovie).HasData(
+               new Dictionary<string, object> { [genresId] = sciFi.Id, [moviesId] = noWayHome.Id },
+               new Dictionary<string, object> { [genresId] = action.Id, [moviesId] = noWayHome.Id },
+               new Dictionary<string, object> { [genresId] = comedy.Id, [moviesId] = noWayHome.Id }
+           );
+
+            var farFromHome = new Movie()
+            {
+                Id = 4,
+                Title = "Spider-Man: Far From Home",
+                InCinemas = false,
+                ReleaseDate = new DateTime(2019, 7, 2),
+                PosterURL = "https://upload.wikimedia.org/wikipedia/en/0/00/Spider-Man_No_Way_Home_poster.jpg"
+            };
+
+            modelBuilder.Entity(entityGenreMovie).HasData(
+               new Dictionary<string, object> { [genresId] = sciFi.Id, [moviesId] = farFromHome.Id },
+               new Dictionary<string, object> { [genresId] = action.Id, [moviesId] = farFromHome.Id },
+               new Dictionary<string, object> { [genresId] = comedy.Id, [moviesId] = farFromHome.Id }
+           );
+
+            var theMatrixResurrections = new Movie()
+            {
+                Id = 5,
+                Title = "The Matrix Resurrections",
+                InCinemas = true,
+                ReleaseDate = new DateTime(2023, 1, 1),
+                PosterURL = "https://upload.wikimedia.org/wikipedia/en/5/50/The_Matrix_Resurrections.jpg",
+            };
+
+            modelBuilder.Entity(entityGenreMovie).HasData(
+              new Dictionary<string, object> { [genresId] = sciFi.Id, [moviesId] = theMatrixResurrections.Id },
+              new Dictionary<string, object> { [genresId] = action.Id, [moviesId] = theMatrixResurrections.Id },
+              new Dictionary<string, object> { [genresId] = drama.Id, [moviesId] = theMatrixResurrections.Id }
+          );
+
+            var keanuReevesMatrix = new MovieActor
+            {
+                ActorId = keanuReeves.Id,
+                MovieId = theMatrixResurrections.Id,
+                DisplayOrder = 1,
+                CharacterName = "Neo"
+            };
+
+            var avengersChrisEvans = new MovieActor
+            {
+                ActorId = chrisEvans.Id,
+                MovieId = avengers.Id,
+                DisplayOrder = 1,
+                CharacterName = "Capitán América"
+            };
+
+            var avengersRobertDowney = new MovieActor
+            {
+                ActorId = robertDowney.Id,
+                MovieId = avengers.Id,
+                DisplayOrder = 2,
+                CharacterName = "Iron Man"
+            };
+
+            var avengersScarlettJohansson = new MovieActor
+            {
+                ActorId = scarlettJohansson.Id,
+                MovieId = avengers.Id,
+                DisplayOrder = 3,
+                CharacterName = "Black Widow"
+            };
+
+            var tomHollandFFH = new MovieActor
+            {
+                ActorId = tomHolland.Id,
+                MovieId = farFromHome.Id,
+                DisplayOrder = 1,
+                CharacterName = "Peter Parker"
+            };
+
+            var tomHollandNWH = new MovieActor
+            {
+                ActorId = tomHolland.Id,
+                MovieId = noWayHome.Id,
+                DisplayOrder = 1,
+                CharacterName = "Peter Parker"
+            };
+
+            var samuelJacksonFFH = new MovieActor
+            {
+                ActorId = samuelJackson.Id,
+                MovieId = farFromHome.Id,
+                DisplayOrder = 2,
+                CharacterName = "Samuel L. Jackson"
+            };
+
+            modelBuilder.Entity<Movie>().HasData(avengers, coco, noWayHome, farFromHome, theMatrixResurrections);
+
+            modelBuilder.Entity<MovieActor>().HasData(samuelJacksonFFH, tomHollandFFH,
+                tomHollandNWH, avengersRobertDowney, avengersScarlettJohansson,
+                avengersChrisEvans, keanuReevesMatrix);
         }
     }
 }

@@ -41,25 +41,187 @@ namespace EFCoreMovies.Migrations
 
             migrationBuilder.InsertData(
                 schema: "mov",
-                table: "GenreMovie",
-                columns: new[] { "GenresId", "MoviesId" },
-                values: new object[] { 1, 1 });
+                table: "Movies",
+                columns: new[] { "Id", "InCinemas", "PosterURL", "ReleaseDate", "Title" },
+                values: new object[,]
+                {
+                    { 1, false, "https://upload.wikimedia.org/wikipedia/en/8/8a/The_Avengers_%282012_film%29_poster.jpg", new DateTime(2012, 4, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "Avengers" },
+                    { 2, false, "https://upload.wikimedia.org/wikipedia/en/9/98/Coco_%282017_film%29_poster.jpg", new DateTime(2017, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "Coco" },
+                    { 3, false, "https://upload.wikimedia.org/wikipedia/en/0/00/Spider-Man_No_Way_Home_poster.jpg", new DateTime(2022, 12, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), "Spider-Man: No way home" },
+                    { 4, false, "https://upload.wikimedia.org/wikipedia/en/0/00/Spider-Man_No_Way_Home_poster.jpg", new DateTime(2019, 7, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Spider-Man: Far From Home" },
+                    { 5, true, "https://upload.wikimedia.org/wikipedia/en/5/50/The_Matrix_Resurrections.jpg", new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "The Matrix Resurrections" }
+                });
 
             migrationBuilder.InsertData(
                 schema: "mov",
                 table: "GenreMovie",
                 columns: new[] { "GenresId", "MoviesId" },
-                values: new object[] { 2, 2 });
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 1, 3 },
+                    { 1, 4 },
+                    { 1, 5 },
+                    { 2, 2 },
+                    { 3, 3 },
+                    { 3, 4 },
+                    { 4, 1 },
+                    { 4, 3 },
+                    { 4, 4 },
+                    { 4, 5 },
+                    { 5, 5 }
+                });
 
             migrationBuilder.InsertData(
                 schema: "mov",
-                table: "GenreMovie",
-                columns: new[] { "GenresId", "MoviesId" },
-                values: new object[] { 4, 1 });
+                table: "MoviesActors",
+                columns: new[] { "ActorId", "MovieId", "CharacterName", "DisplayOrder" },
+                values: new object[,]
+                {
+                    { 1, 3, "Peter Parker", 1 },
+                    { 1, 4, "Peter Parker", 1 },
+                    { 2, 4, "Samuel L. Jackson", 2 },
+                    { 3, 1, "Iron Man", 2 },
+                    { 4, 1, "Capitán América", 1 },
+                    { 7, 1, "Black Widow", 3 },
+                    { 8, 5, "Neo", 1 }
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "Actors",
+                keyColumn: "Id",
+                keyValue: 5);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "Actors",
+                keyColumn: "Id",
+                keyValue: 6);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "GenreMovie",
+                keyColumns: new[] { "GenresId", "MoviesId" },
+                keyValues: new object[] { 1, 1 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "GenreMovie",
+                keyColumns: new[] { "GenresId", "MoviesId" },
+                keyValues: new object[] { 1, 3 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "GenreMovie",
+                keyColumns: new[] { "GenresId", "MoviesId" },
+                keyValues: new object[] { 1, 4 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "GenreMovie",
+                keyColumns: new[] { "GenresId", "MoviesId" },
+                keyValues: new object[] { 1, 5 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "GenreMovie",
+                keyColumns: new[] { "GenresId", "MoviesId" },
+                keyValues: new object[] { 2, 2 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "GenreMovie",
+                keyColumns: new[] { "GenresId", "MoviesId" },
+                keyValues: new object[] { 3, 3 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "GenreMovie",
+                keyColumns: new[] { "GenresId", "MoviesId" },
+                keyValues: new object[] { 3, 4 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "GenreMovie",
+                keyColumns: new[] { "GenresId", "MoviesId" },
+                keyValues: new object[] { 4, 1 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "GenreMovie",
+                keyColumns: new[] { "GenresId", "MoviesId" },
+                keyValues: new object[] { 4, 3 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "GenreMovie",
+                keyColumns: new[] { "GenresId", "MoviesId" },
+                keyValues: new object[] { 4, 4 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "GenreMovie",
+                keyColumns: new[] { "GenresId", "MoviesId" },
+                keyValues: new object[] { 4, 5 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "GenreMovie",
+                keyColumns: new[] { "GenresId", "MoviesId" },
+                keyValues: new object[] { 5, 5 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "Genres",
+                keyColumn: "Id",
+                keyValue: 6);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "MoviesActors",
+                keyColumns: new[] { "ActorId", "MovieId" },
+                keyValues: new object[] { 1, 3 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "MoviesActors",
+                keyColumns: new[] { "ActorId", "MovieId" },
+                keyValues: new object[] { 1, 4 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "MoviesActors",
+                keyColumns: new[] { "ActorId", "MovieId" },
+                keyValues: new object[] { 2, 4 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "MoviesActors",
+                keyColumns: new[] { "ActorId", "MovieId" },
+                keyValues: new object[] { 3, 1 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "MoviesActors",
+                keyColumns: new[] { "ActorId", "MovieId" },
+                keyValues: new object[] { 4, 1 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "MoviesActors",
+                keyColumns: new[] { "ActorId", "MovieId" },
+                keyValues: new object[] { 7, 1 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "MoviesActors",
+                keyColumns: new[] { "ActorId", "MovieId" },
+                keyValues: new object[] { 8, 5 });
+
             migrationBuilder.DeleteData(
                 schema: "mov",
                 table: "Actors",
@@ -83,18 +245,6 @@ namespace EFCoreMovies.Migrations
                 table: "Actors",
                 keyColumn: "Id",
                 keyValue: 4);
-
-            migrationBuilder.DeleteData(
-                schema: "mov",
-                table: "Actors",
-                keyColumn: "Id",
-                keyValue: 5);
-
-            migrationBuilder.DeleteData(
-                schema: "mov",
-                table: "Actors",
-                keyColumn: "Id",
-                keyValue: 6);
 
             migrationBuilder.DeleteData(
                 schema: "mov",
@@ -110,42 +260,6 @@ namespace EFCoreMovies.Migrations
 
             migrationBuilder.DeleteData(
                 schema: "mov",
-                table: "GenreMovie",
-                keyColumns: new[] { "GenresId", "MoviesId" },
-                keyValues: new object[] { 1, 1 });
-
-            migrationBuilder.DeleteData(
-                schema: "mov",
-                table: "GenreMovie",
-                keyColumns: new[] { "GenresId", "MoviesId" },
-                keyValues: new object[] { 2, 2 });
-
-            migrationBuilder.DeleteData(
-                schema: "mov",
-                table: "GenreMovie",
-                keyColumns: new[] { "GenresId", "MoviesId" },
-                keyValues: new object[] { 4, 1 });
-
-            migrationBuilder.DeleteData(
-                schema: "mov",
-                table: "Genres",
-                keyColumn: "Id",
-                keyValue: 3);
-
-            migrationBuilder.DeleteData(
-                schema: "mov",
-                table: "Genres",
-                keyColumn: "Id",
-                keyValue: 5);
-
-            migrationBuilder.DeleteData(
-                schema: "mov",
-                table: "Genres",
-                keyColumn: "Id",
-                keyValue: 6);
-
-            migrationBuilder.DeleteData(
-                schema: "mov",
                 table: "Genres",
                 keyColumn: "Id",
                 keyValue: 1);
@@ -160,7 +274,49 @@ namespace EFCoreMovies.Migrations
                 schema: "mov",
                 table: "Genres",
                 keyColumn: "Id",
+                keyValue: 3);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "Genres",
+                keyColumn: "Id",
                 keyValue: 4);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "Genres",
+                keyColumn: "Id",
+                keyValue: 5);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "Movies",
+                keyColumn: "Id",
+                keyValue: 1);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "Movies",
+                keyColumn: "Id",
+                keyValue: 2);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "Movies",
+                keyColumn: "Id",
+                keyValue: 3);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "Movies",
+                keyColumn: "Id",
+                keyValue: 4);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "Movies",
+                keyColumn: "Id",
+                keyValue: 5);
         }
     }
 }

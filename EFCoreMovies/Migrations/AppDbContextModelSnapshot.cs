@@ -285,6 +285,48 @@ namespace EFCoreMovies.Migrations
                     b.HasIndex("Title");
 
                     b.ToTable("Movies", "mov");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            InCinemas = false,
+                            PosterURL = "https://upload.wikimedia.org/wikipedia/en/8/8a/The_Avengers_%282012_film%29_poster.jpg",
+                            ReleaseDate = new DateTime(2012, 4, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Avengers"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            InCinemas = false,
+                            PosterURL = "https://upload.wikimedia.org/wikipedia/en/9/98/Coco_%282017_film%29_poster.jpg",
+                            ReleaseDate = new DateTime(2017, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Coco"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            InCinemas = false,
+                            PosterURL = "https://upload.wikimedia.org/wikipedia/en/0/00/Spider-Man_No_Way_Home_poster.jpg",
+                            ReleaseDate = new DateTime(2022, 12, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Spider-Man: No way home"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            InCinemas = false,
+                            PosterURL = "https://upload.wikimedia.org/wikipedia/en/0/00/Spider-Man_No_Way_Home_poster.jpg",
+                            ReleaseDate = new DateTime(2019, 7, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Spider-Man: Far From Home"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            InCinemas = true,
+                            PosterURL = "https://upload.wikimedia.org/wikipedia/en/5/50/The_Matrix_Resurrections.jpg",
+                            ReleaseDate = new DateTime(2023, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "The Matrix Resurrections"
+                        });
                 });
 
             modelBuilder.Entity("EFCoreMovies.Entities.MovieActor", b =>
@@ -313,6 +355,57 @@ namespace EFCoreMovies.Migrations
                     b.HasIndex("MovieId");
 
                     b.ToTable("MoviesActors", "mov");
+
+                    b.HasData(
+                        new
+                        {
+                            ActorId = 2,
+                            MovieId = 4,
+                            CharacterName = "Samuel L. Jackson",
+                            DisplayOrder = 2
+                        },
+                        new
+                        {
+                            ActorId = 1,
+                            MovieId = 4,
+                            CharacterName = "Peter Parker",
+                            DisplayOrder = 1
+                        },
+                        new
+                        {
+                            ActorId = 1,
+                            MovieId = 3,
+                            CharacterName = "Peter Parker",
+                            DisplayOrder = 1
+                        },
+                        new
+                        {
+                            ActorId = 3,
+                            MovieId = 1,
+                            CharacterName = "Iron Man",
+                            DisplayOrder = 2
+                        },
+                        new
+                        {
+                            ActorId = 7,
+                            MovieId = 1,
+                            CharacterName = "Black Widow",
+                            DisplayOrder = 3
+                        },
+                        new
+                        {
+                            ActorId = 4,
+                            MovieId = 1,
+                            CharacterName = "Capitán América",
+                            DisplayOrder = 1
+                        },
+                        new
+                        {
+                            ActorId = 8,
+                            MovieId = 5,
+                            CharacterName = "Neo",
+                            DisplayOrder = 1
+                        });
                 });
 
             modelBuilder.Entity("GenreMovie", b =>
@@ -344,6 +437,51 @@ namespace EFCoreMovies.Migrations
                         {
                             GenresId = 2,
                             MoviesId = 2
+                        },
+                        new
+                        {
+                            GenresId = 4,
+                            MoviesId = 3
+                        },
+                        new
+                        {
+                            GenresId = 1,
+                            MoviesId = 3
+                        },
+                        new
+                        {
+                            GenresId = 3,
+                            MoviesId = 3
+                        },
+                        new
+                        {
+                            GenresId = 4,
+                            MoviesId = 4
+                        },
+                        new
+                        {
+                            GenresId = 1,
+                            MoviesId = 4
+                        },
+                        new
+                        {
+                            GenresId = 3,
+                            MoviesId = 4
+                        },
+                        new
+                        {
+                            GenresId = 4,
+                            MoviesId = 5
+                        },
+                        new
+                        {
+                            GenresId = 1,
+                            MoviesId = 5
+                        },
+                        new
+                        {
+                            GenresId = 5,
+                            MoviesId = 5
                         });
                 });
 
