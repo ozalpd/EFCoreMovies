@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using NetTopologySuite.Geometries;
 
 #nullable disable
 
@@ -23,6 +24,18 @@ namespace EFCoreMovies.Migrations
                     { 6, null, new DateTime(2000, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "Auli'i Cravalho" },
                     { 7, null, new DateTime(1984, 11, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), "Scarlett Johansson" },
                     { 8, null, new DateTime(1964, 9, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Keanu Reeves" }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "mov",
+                table: "Cinemas",
+                columns: new[] { "Id", "Location", "Name", "TicketPrice" },
+                values: new object[,]
+                {
+                    { 1, (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=4326;POINT (-69.9388777 18.4839233)"), "Agora Mall", 0m },
+                    { 2, (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=4326;POINT (-69.911582 18.482455)"), "Sambil", 0m },
+                    { 3, (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=4326;POINT (-69.856309 18.506662)"), "Megacentro", 0m },
+                    { 4, (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=4326;POINT (-69.939248 18.469649)"), "Acropolis", 0m }
                 });
 
             migrationBuilder.InsertData(
@@ -101,6 +114,30 @@ namespace EFCoreMovies.Migrations
                 table: "Actors",
                 keyColumn: "Id",
                 keyValue: 6);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "Cinemas",
+                keyColumn: "Id",
+                keyValue: 1);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "Cinemas",
+                keyColumn: "Id",
+                keyValue: 2);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "Cinemas",
+                keyColumn: "Id",
+                keyValue: 3);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "Cinemas",
+                keyColumn: "Id",
+                keyValue: 4);
 
             migrationBuilder.DeleteData(
                 schema: "mov",

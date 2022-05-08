@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NetTopologySuite;
+using NetTopologySuite.Geometries;
 
 namespace EFCoreMovies.Entities.Configs
 {
@@ -174,6 +176,37 @@ namespace EFCoreMovies.Entities.Configs
             modelBuilder.Entity<MovieActor>().HasData(samuelJacksonFFH, tomHollandFFH,
                 tomHollandNWH, avengersRobertDowney, avengersScarlettJohansson,
                 avengersChrisEvans, keanuReevesMatrix);
+
+
+
+            var geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
+
+            var agora = new Cinema()
+            {
+                Id = 1,
+                Name = "Agora Mall",
+                Location = geometryFactory.CreatePoint(new Coordinate(-69.9388777, 18.4839233))
+            };
+            var sambil = new Cinema()
+            {
+                Id = 2,
+                Name = "Sambil",
+                Location = geometryFactory.CreatePoint(new Coordinate(-69.911582, 18.482455))
+            };
+            var megacentro = new Cinema()
+            {
+                Id = 3,
+                Name = "Megacentro",
+                Location = geometryFactory.CreatePoint(new Coordinate(-69.856309, 18.506662))
+            };
+            var acropolis = new Cinema()
+            {
+                Id = 4,
+                Name = "Acropolis",
+                Location = geometryFactory.CreatePoint(new Coordinate(-69.939248, 18.469649))
+            };
+
+            modelBuilder.Entity<Cinema>().HasData(agora, sambil, megacentro, acropolis);
         }
     }
 }

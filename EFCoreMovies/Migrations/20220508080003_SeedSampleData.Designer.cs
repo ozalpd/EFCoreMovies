@@ -144,6 +144,36 @@ namespace EFCoreMovies.Migrations
                     b.HasIndex("Name");
 
                     b.ToTable("Cinemas", "mov");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Location = (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=4326;POINT (-69.9388777 18.4839233)"),
+                            Name = "Agora Mall",
+                            TicketPrice = 0m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Location = (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=4326;POINT (-69.911582 18.482455)"),
+                            Name = "Sambil",
+                            TicketPrice = 0m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Location = (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=4326;POINT (-69.856309 18.506662)"),
+                            Name = "Megacentro",
+                            TicketPrice = 0m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Location = (NetTopologySuite.Geometries.Point)new NetTopologySuite.IO.WKTReader().Read("SRID=4326;POINT (-69.939248 18.469649)"),
+                            Name = "Acropolis",
+                            TicketPrice = 0m
+                        });
                 });
 
             modelBuilder.Entity("EFCoreMovies.Entities.CinemaHall", b =>
