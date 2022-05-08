@@ -67,6 +67,32 @@ namespace EFCoreMovies.Migrations
 
             migrationBuilder.InsertData(
                 schema: "mov",
+                table: "CinemaHalls",
+                columns: new[] { "Id", "CinemaHallType", "CinemaId", "TicketPrice" },
+                values: new object[,]
+                {
+                    { 1, 2, 1, 220m },
+                    { 2, 3, 1, 320m },
+                    { 3, 2, 2, 200m },
+                    { 4, 3, 2, 290m },
+                    { 5, 2, 3, 250m },
+                    { 6, 3, 3, 330m },
+                    { 7, 4, 3, 450m },
+                    { 8, 2, 4, 250m }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "mov",
+                table: "CinemaOffers",
+                columns: new[] { "Id", "BeginDate", "CinemaId", "DiscountPercentage", "EndDate" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2022, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 10m, new DateTime(2022, 4, 22, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, new DateTime(2022, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 15m, new DateTime(2022, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "mov",
                 table: "GenreMovie",
                 columns: new[] { "GenresId", "MoviesId" },
                 values: new object[,]
@@ -99,6 +125,21 @@ namespace EFCoreMovies.Migrations
                     { 7, 1, "Black Widow", 3 },
                     { 8, 5, "Neo", 1 }
                 });
+
+            migrationBuilder.InsertData(
+                schema: "mov",
+                table: "CinemaHallMovie",
+                columns: new[] { "CinemaHallsId", "MoviesId" },
+                values: new object[,]
+                {
+                    { 1, 5 },
+                    { 2, 5 },
+                    { 3, 5 },
+                    { 4, 5 },
+                    { 5, 5 },
+                    { 6, 5 },
+                    { 7, 5 }
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -117,27 +158,63 @@ namespace EFCoreMovies.Migrations
 
             migrationBuilder.DeleteData(
                 schema: "mov",
-                table: "Cinemas",
+                table: "CinemaHallMovie",
+                keyColumns: new[] { "CinemaHallsId", "MoviesId" },
+                keyValues: new object[] { 1, 5 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "CinemaHallMovie",
+                keyColumns: new[] { "CinemaHallsId", "MoviesId" },
+                keyValues: new object[] { 2, 5 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "CinemaHallMovie",
+                keyColumns: new[] { "CinemaHallsId", "MoviesId" },
+                keyValues: new object[] { 3, 5 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "CinemaHallMovie",
+                keyColumns: new[] { "CinemaHallsId", "MoviesId" },
+                keyValues: new object[] { 4, 5 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "CinemaHallMovie",
+                keyColumns: new[] { "CinemaHallsId", "MoviesId" },
+                keyValues: new object[] { 5, 5 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "CinemaHallMovie",
+                keyColumns: new[] { "CinemaHallsId", "MoviesId" },
+                keyValues: new object[] { 6, 5 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "CinemaHallMovie",
+                keyColumns: new[] { "CinemaHallsId", "MoviesId" },
+                keyValues: new object[] { 7, 5 });
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "CinemaHalls",
+                keyColumn: "Id",
+                keyValue: 8);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "CinemaOffers",
                 keyColumn: "Id",
                 keyValue: 1);
 
             migrationBuilder.DeleteData(
                 schema: "mov",
-                table: "Cinemas",
+                table: "CinemaOffers",
                 keyColumn: "Id",
                 keyValue: 2);
-
-            migrationBuilder.DeleteData(
-                schema: "mov",
-                table: "Cinemas",
-                keyColumn: "Id",
-                keyValue: 3);
-
-            migrationBuilder.DeleteData(
-                schema: "mov",
-                table: "Cinemas",
-                keyColumn: "Id",
-                keyValue: 4);
 
             migrationBuilder.DeleteData(
                 schema: "mov",
@@ -297,6 +374,54 @@ namespace EFCoreMovies.Migrations
 
             migrationBuilder.DeleteData(
                 schema: "mov",
+                table: "CinemaHalls",
+                keyColumn: "Id",
+                keyValue: 1);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "CinemaHalls",
+                keyColumn: "Id",
+                keyValue: 2);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "CinemaHalls",
+                keyColumn: "Id",
+                keyValue: 3);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "CinemaHalls",
+                keyColumn: "Id",
+                keyValue: 4);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "CinemaHalls",
+                keyColumn: "Id",
+                keyValue: 5);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "CinemaHalls",
+                keyColumn: "Id",
+                keyValue: 6);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "CinemaHalls",
+                keyColumn: "Id",
+                keyValue: 7);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "Cinemas",
+                keyColumn: "Id",
+                keyValue: 4);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
                 table: "Genres",
                 keyColumn: "Id",
                 keyValue: 1);
@@ -354,6 +479,24 @@ namespace EFCoreMovies.Migrations
                 table: "Movies",
                 keyColumn: "Id",
                 keyValue: 5);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "Cinemas",
+                keyColumn: "Id",
+                keyValue: 1);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "Cinemas",
+                keyColumn: "Id",
+                keyValue: 2);
+
+            migrationBuilder.DeleteData(
+                schema: "mov",
+                table: "Cinemas",
+                keyColumn: "Id",
+                keyValue: 3);
         }
     }
 }

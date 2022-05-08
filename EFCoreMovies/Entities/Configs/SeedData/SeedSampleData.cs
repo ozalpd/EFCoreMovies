@@ -207,6 +207,87 @@ namespace EFCoreMovies.Entities.Configs
             };
 
             modelBuilder.Entity<Cinema>().HasData(agora, sambil, megacentro, acropolis);
+
+
+
+            var agorraOffer = new CinemaOffer { Id = 1, CinemaId = agora.Id, BeginDate = new DateTime(2022, 2, 22), EndDate = new DateTime(2022, 4, 22), DiscountPercentage = 10 };
+            var acropolisOffer = new CinemaOffer { Id = 2, CinemaId = acropolis.Id, BeginDate = new DateTime(2022, 2, 15), EndDate = new DateTime(2022, 2, 22), DiscountPercentage = 15 };
+            modelBuilder.Entity<CinemaOffer>().HasData(acropolisOffer, agorraOffer);
+
+            var cinemaHall2DAgora = new CinemaHall()
+            {
+                Id = 1,
+                CinemaId = agora.Id,
+                TicketPrice = 220,
+                CinemaHallType = CinemaHallType.TwoDimensions
+            };
+            var cinemaHall3DAgora = new CinemaHall()
+            {
+                Id = 2,
+                CinemaId = agora.Id,
+                TicketPrice = 320,
+                CinemaHallType = CinemaHallType.ThreeDimensions
+            };
+
+            var cinemaHall2DSambil = new CinemaHall()
+            {
+                Id = 3,
+                CinemaId = sambil.Id,
+                TicketPrice = 200,
+                CinemaHallType = CinemaHallType.TwoDimensions
+            };
+            var cinemaHall3DSambil = new CinemaHall()
+            {
+                Id = 4,
+                CinemaId = sambil.Id,
+                TicketPrice = 290,
+                CinemaHallType = CinemaHallType.ThreeDimensions
+            };
+
+
+            var cinemaHall2DMegacentro = new CinemaHall()
+            {
+                Id = 5,
+                CinemaId = megacentro.Id,
+                TicketPrice = 250,
+                CinemaHallType = CinemaHallType.TwoDimensions
+            };
+            var cinemaHall3DMegacentro = new CinemaHall()
+            {
+                Id = 6,
+                CinemaId = megacentro.Id,
+                TicketPrice = 330,
+                CinemaHallType = CinemaHallType.ThreeDimensions
+            };
+            var cinemaHallCXCMegacentro = new CinemaHall()
+            {
+                Id = 7,
+                CinemaId = megacentro.Id,
+                TicketPrice = 450,
+                CinemaHallType = CinemaHallType.CXC
+            };
+
+            var cinemaHall2DAcropolis = new CinemaHall()
+            {
+                Id = 8,
+                CinemaId = acropolis.Id,
+                TicketPrice = 250,
+                CinemaHallType = CinemaHallType.TwoDimensions
+            };
+
+            modelBuilder.Entity<CinemaHall>().HasData(cinemaHall2DMegacentro, cinemaHall3DMegacentro, cinemaHallCXCMegacentro, cinemaHall2DAcropolis, cinemaHall2DAgora, cinemaHall3DAgora, cinemaHall2DSambil, cinemaHall3DSambil);
+            
+            var entityCinemaHallMovie = "CinemaHallMovie";
+            var cinemaHallsId = "CinemaHallsId";
+            modelBuilder.Entity(entityCinemaHallMovie).HasData(
+             new Dictionary<string, object> { [cinemaHallsId] = cinemaHall2DSambil.Id, [moviesId] = theMatrixResurrections.Id },
+             new Dictionary<string, object> { [cinemaHallsId] = cinemaHall3DSambil.Id, [moviesId] = theMatrixResurrections.Id },
+             new Dictionary<string, object> { [cinemaHallsId] = cinemaHall2DAgora.Id, [moviesId] = theMatrixResurrections.Id },
+             new Dictionary<string, object> { [cinemaHallsId] = cinemaHall3DAgora.Id, [moviesId] = theMatrixResurrections.Id },
+             new Dictionary<string, object> { [cinemaHallsId] = cinemaHall2DMegacentro.Id, [moviesId] = theMatrixResurrections.Id },
+             new Dictionary<string, object> { [cinemaHallsId] = cinemaHall3DMegacentro.Id, [moviesId] = theMatrixResurrections.Id },
+             new Dictionary<string, object> { [cinemaHallsId] = cinemaHallCXCMegacentro.Id, [moviesId] = theMatrixResurrections.Id }
+            );
         }
     }
 }

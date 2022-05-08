@@ -38,6 +38,43 @@ namespace EFCoreMovies.Migrations
                     b.HasIndex("MoviesId");
 
                     b.ToTable("CinemaHallMovie", "mov");
+
+                    b.HasData(
+                        new
+                        {
+                            CinemaHallsId = 3,
+                            MoviesId = 5
+                        },
+                        new
+                        {
+                            CinemaHallsId = 4,
+                            MoviesId = 5
+                        },
+                        new
+                        {
+                            CinemaHallsId = 1,
+                            MoviesId = 5
+                        },
+                        new
+                        {
+                            CinemaHallsId = 2,
+                            MoviesId = 5
+                        },
+                        new
+                        {
+                            CinemaHallsId = 5,
+                            MoviesId = 5
+                        },
+                        new
+                        {
+                            CinemaHallsId = 6,
+                            MoviesId = 5
+                        },
+                        new
+                        {
+                            CinemaHallsId = 7,
+                            MoviesId = 5
+                        });
                 });
 
             modelBuilder.Entity("EFCoreMovies.Entities.Actor", b =>
@@ -201,6 +238,64 @@ namespace EFCoreMovies.Migrations
                     b.HasIndex("CinemaId");
 
                     b.ToTable("CinemaHalls", "mov");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 5,
+                            CinemaHallType = 2,
+                            CinemaId = 3,
+                            TicketPrice = 250m
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CinemaHallType = 3,
+                            CinemaId = 3,
+                            TicketPrice = 330m
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CinemaHallType = 4,
+                            CinemaId = 3,
+                            TicketPrice = 450m
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CinemaHallType = 2,
+                            CinemaId = 4,
+                            TicketPrice = 250m
+                        },
+                        new
+                        {
+                            Id = 1,
+                            CinemaHallType = 2,
+                            CinemaId = 1,
+                            TicketPrice = 220m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CinemaHallType = 3,
+                            CinemaId = 1,
+                            TicketPrice = 320m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CinemaHallType = 2,
+                            CinemaId = 2,
+                            TicketPrice = 200m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CinemaHallType = 3,
+                            CinemaId = 2,
+                            TicketPrice = 290m
+                        });
                 });
 
             modelBuilder.Entity("EFCoreMovies.Entities.CinemaOffer", b =>
@@ -232,6 +327,24 @@ namespace EFCoreMovies.Migrations
                         .IsUnique();
 
                     b.ToTable("CinemaOffers", "mov");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 2,
+                            BeginDate = new DateTime(2022, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CinemaId = 4,
+                            DiscountPercentage = 15m,
+                            EndDate = new DateTime(2022, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 1,
+                            BeginDate = new DateTime(2022, 2, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CinemaId = 1,
+                            DiscountPercentage = 10m,
+                            EndDate = new DateTime(2022, 4, 22, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("EFCoreMovies.Entities.Genre", b =>
