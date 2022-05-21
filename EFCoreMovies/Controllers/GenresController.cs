@@ -17,7 +17,9 @@ namespace EFCoreMovies.Controllers
         [HttpGet]
         public async Task<IEnumerable<Genre>> Get()
         {
-            return await dbContext.Genres.AsNoTracking().ToListAsync();
+            return await dbContext.Genres
+                                  //.AsNoTracking()
+                                  .ToListAsync();
         }
     }
 }
