@@ -1,4 +1,5 @@
 ﻿using EFCoreMovies.Entities;
+using EFCoreMovies.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,16 +25,12 @@ namespace EFCoreMovies.Controllers
                         where g.Name.Contains(searchString)
                            || g.Movies.Any(m => m.Title.Contains(searchString))
                         select g;
-                //.Where(g => );
             }
 
-            //int recCount = await query.CountAsync();
-            page = page < 1 ? 1 : page;
-            pageSize = pageSize < 1 ? 10 : pageSize;
+            int recCount = await query.CountAsync();
             return await query.OrderBy(g => g.Name)
-                              .Skip((page - 1) * pageSize)
-                              .Take(pageSize)
-                              .AsNoTracking()
+                              .Paginate(page, pageSize, recCount)
+                              //.AsNoTracking()
                               .ToListAsync();
         }
     }
