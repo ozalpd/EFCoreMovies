@@ -1,4 +1,5 @@
 ﻿using EFCoreMovies.Entities;
+using EFCoreMovies.Entities.DTOs;
 using EFCoreMovies.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,7 @@ namespace EFCoreMovies.Controllers
         public ActorsController(AppDbContext context) : base(context) { }
 
         [HttpGet]
-        public async Task<IEnumerable<Actor>> Get(string searchString, int page = 1, int pageSize = 2)
+        public async Task<IEnumerable<ActorDTO>> Get(string searchString, int page = 1, int pageSize = 2)
         {
             IQueryable<Actor> query = dbContext.Actors;
             if (!string.IsNullOrEmpty(searchString))
@@ -21,10 +22,15 @@ namespace EFCoreMovies.Controllers
             }
 
             int recCount = await query.CountAsync();
-            return await query.OrderBy(a => a.Name)
-                              .Paginate(page, pageSize, recCount)
-                              //.AsNoTracking()
-                              .ToListAsync();
+            var dtoQuery = query.OrderBy(a => a.Name)
+                                .Paginate(page, pageSize, recCount)
+                                .Select(a => new ActorDTO
+                                {
+                                    Id = a.Id,
+                                    Name = a.Name,
+                                    DateOfBirth = a.DateOfBirth
+                                });
+            return await dtoQuery.ToListAsync();
         }
     }
 }
