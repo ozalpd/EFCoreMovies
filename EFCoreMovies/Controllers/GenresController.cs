@@ -6,14 +6,10 @@ using Microsoft.EntityFrameworkCore;
 namespace EFCoreMovies.Controllers
 {
     [ApiController]
-    [Route("api/genres")]
-    public class GenresController : ControllerBase
+    [Route("api/Genres")]
+    public class GenresController : AbstractController
     {
-        public GenresController(AppDbContext context)
-        {
-            dbContext = context;
-        }
-        private readonly AppDbContext dbContext;
+        public GenresController(AppDbContext context) : base(context) { }
 
         [HttpGet]
         public async Task<IEnumerable<Genre>> Get(string searchString, int page = 1, int pageSize = 2)
