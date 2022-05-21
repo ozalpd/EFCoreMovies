@@ -10,6 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddAutoMapper(typeof(Program));
+
 builder.Services
        .AddDbContext<AppDbContext>(opt => {
            opt.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking); //Its good idea to make NoTracking that default behaviour of queries

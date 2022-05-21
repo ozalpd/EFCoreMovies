@@ -1,4 +1,6 @@
-﻿using EFCoreMovies.Entities;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using EFCoreMovies.Entities;
 using EFCoreMovies.Entities.DTOs;
 using EFCoreMovies.Utilities;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +12,7 @@ namespace EFCoreMovies.Controllers
     [Route("api/Actors")]
     public class ActorsController : AbstractController
     {
-        public ActorsController(AppDbContext context) : base(context) { }
+        public ActorsController(AppDbContext context, IMapper mapper) : base(context, mapper) { }
 
         [HttpGet]
         public async Task<IEnumerable<ActorDTO>> Get(string searchString, int page = 1, int pageSize = 2)
@@ -24,12 +26,15 @@ namespace EFCoreMovies.Controllers
             int recCount = await query.CountAsync();
             var dtoQuery = query.OrderBy(a => a.Name)
                                 .Paginate(page, pageSize, recCount)
-                                .Select(a => new ActorDTO
-                                {
-                                    Id = a.Id,
-                                    Name = a.Name,
-                                    DateOfBirth = a.DateOfBirth
-                                });
+                                .ProjectTo<ActorDTO>(mapper.ConfigurationProvider);
+            //We are using ProjectTo extension method of AutoMapper
+            //instead of below part
+                                //.Select(a => new ActorDTO
+                                //{
+                                //    Id = a.Id,
+                                //    Name = a.Name,
+                                //    DateOfBirth = a.DateOfBirth
+                                //});
             return await dtoQuery.ToListAsync();
         }
     }
