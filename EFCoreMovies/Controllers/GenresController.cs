@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using EFCoreMovies.Entities;
+﻿using EFCoreMovies.Entities;
 using EFCoreMovies.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +9,7 @@ namespace EFCoreMovies.Controllers
     [Route("api/Genres")]
     public class GenresController : AbstractController
     {
-        public GenresController(AppDbContext context, IMapper mapper) : base(context, mapper) { }
+        public GenresController(AppDbContext context) : base(context) { }
 
         [HttpGet]
         public async Task<IEnumerable<Genre>> Get(string searchString, int page = 1, int pageSize = 2)

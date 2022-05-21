@@ -1,17 +1,14 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace EFCoreMovies.Controllers
 {
     public abstract class AbstractController : ControllerBase
     {
-        public AbstractController(AppDbContext context, IMapper mapper)
+        public AbstractController(AppDbContext context)
         {
             dbContext = context;
-            this.mapper = mapper;
         }
         protected readonly AppDbContext dbContext;
-        protected readonly IMapper mapper;
 
     }
 }
