@@ -2,8 +2,11 @@
 {
     public static class IQueryableExtensions
     {
-        public static IQueryable<T> Paginate<T>(this IQueryable<T> query, int page, int pageSize, int recCount = -1)
+        public static IQueryable<T> Paginate<T>(this IQueryable<T> query, IPager pager, int recCount = -1)
         {
+            int page = pager.PageNumber ?? 1;
+            int pageSize = pager.PageSize ?? 10;
+
             if (recCount > 0)
             {
                 int totalpages = recCount / pageSize;

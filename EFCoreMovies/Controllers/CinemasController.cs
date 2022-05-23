@@ -18,28 +18,27 @@ namespace EFCoreMovies.Controllers
 
 
         [HttpGet]
-        public async Task<IEnumerable<CinemaDTO>> Get(string searchString, int page = 1, int pageSize = 2,
-            double? latitude = null, double? longitude = null, int maxDistance = 2500)
+        public async Task<IEnumerable<CinemaDTO>> Get([FromQuery] GeoQueryFilter filter)
         {
             IQueryable<Cinema> query = dbContext.Cinemas;
-            if (!string.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(filter.SearchString))
             {
-                query = query.Where(a => a.Name.Contains(searchString));
+                query = query.Where(a => a.Name.Contains(filter.SearchString));
             }
 
             IQueryable<CinemaDTO> dtoQuery = null;
-            if (latitude != null && longitude != null)
+            if (filter.Latitude != null && filter.Longitude != null)
             {
                 var geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
-                var visitorLocation = geometryFactory.CreatePoint(new Coordinate(longitude.Value, latitude.Value));
+                var visitorLocation = geometryFactory.CreatePoint(new Coordinate(filter.Longitude.Value, filter.Latitude.Value));
                 query = query.OrderBy(c => c.Location.Distance(visitorLocation));
-                if (maxDistance > 5)
+                if ((filter.MaxDistance ?? 0) > 5)
                 {
-                    query = query.Where(c => c.Location.IsWithinDistance(visitorLocation, maxDistance));
+                    query = query.Where(c => c.Location.IsWithinDistance(visitorLocation, filter.MaxDistance.Value));
                 }
 
                 int recCount = await query.CountAsync();
-                dtoQuery = query.Paginate(page, pageSize, recCount)
+                dtoQuery = query.Paginate(filter, recCount)
                                 .Select(c => new CinemaDTO
                                 {
                                     Id = c.Id,
@@ -54,7 +53,7 @@ namespace EFCoreMovies.Controllers
             {
                 int recCount = await query.CountAsync();
                 dtoQuery = query.OrderBy(a => a.Name)
-                                .Paginate(page, pageSize, recCount)
+                                .Paginate(filter, recCount)
                                 .ProjectTo<CinemaDTO>(mapper.ConfigurationProvider);
             }
             return await dtoQuery.ToListAsync();

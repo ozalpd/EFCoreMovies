@@ -15,17 +15,17 @@ namespace EFCoreMovies.Controllers
         public ActorsController(AppDbContext context, IMapper mapper) : base(context, mapper) { }
 
         [HttpGet]
-        public async Task<IEnumerable<ActorDTO>> Get(string searchString, int page = 1, int pageSize = 2)
+        public async Task<IEnumerable<ActorDTO>> Get([FromQuery] QueryFilter filter)
         {
             IQueryable<Actor> query = dbContext.Actors;
-            if (!string.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(filter.SearchString))
             {
-                query = query.Where(a => a.Name.Contains(searchString));
+                query = query.Where(a => a.Name.Contains(filter.SearchString));
             }
 
             int recCount = await query.CountAsync();
             var dtoQuery = query.OrderBy(a => a.Name)
-                                .Paginate(page, pageSize, recCount)
+                                .Paginate(filter, recCount)
                                 .ProjectTo<ActorDTO>(mapper.ConfigurationProvider);
             /*We are using ProjectTo extension method of AutoMapper
              *instead of below part

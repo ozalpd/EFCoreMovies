@@ -77,22 +77,22 @@ namespace EFCoreMovies.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<MovieListDTO>> GetList(string searchString, int page = 1, int pageSize = 2)
+        public async Task<IEnumerable<MovieListDTO>> GetList([FromQuery] QueryFilter filter)
         {
             var query = GetMoviesQuery();
-            if (!string.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(filter.SearchString))
             {
                 query = from m in query
-                        where m.Title.Contains(searchString)
-                           || m.Genres.Any(g => g.Name.Contains(searchString))
-                           || m.CinemaHalls.Any(ch => ch.Cinema.Name.Contains(searchString))
-                           || m.MoviesActors.Any(ma => ma.Actor.Name.Contains(searchString))
+                        where m.Title.Contains(filter.SearchString)
+                           || m.Genres.Any(g => g.Name.Contains(filter.SearchString))
+                           || m.CinemaHalls.Any(ch => ch.Cinema.Name.Contains(filter.SearchString))
+                           || m.MoviesActors.Any(ma => ma.Actor.Name.Contains(filter.SearchString))
                         select m;
             }
 
             int recCount = await query.CountAsync();
             return await query.OrderBy(g => g.Title)
-                              .Paginate(page, pageSize, recCount)
+                              .Paginate(filter, recCount)
                               .ProjectTo<MovieListDTO>(mapper.ConfigurationProvider)
                               .ToListAsync();
         }

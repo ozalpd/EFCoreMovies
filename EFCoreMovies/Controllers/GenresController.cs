@@ -15,20 +15,20 @@ namespace EFCoreMovies.Controllers
         public GenresController(AppDbContext context, IMapper mapper) : base(context, mapper) { }
 
         [HttpGet]
-        public async Task<IEnumerable<GenreDTO>> Get(string searchString, int page = 1, int pageSize = 2)
+        public async Task<IEnumerable<GenreDTO>> Get([FromQuery] QueryFilter filter)
         {
             IQueryable<Genre> query = dbContext.Genres.AsNoTracking();
-            if (!string.IsNullOrEmpty(searchString))
+            if (!string.IsNullOrEmpty(filter.SearchString))
             {
                 query = from g in query
-                        where g.Name.Contains(searchString)
-                           || g.Movies.Any(m => m.Title.Contains(searchString))
+                        where g.Name.Contains(filter.SearchString)
+                           || g.Movies.Any(m => m.Title.Contains(filter.SearchString))
                         select g;
             }
 
             int recCount = await query.CountAsync();
             query = query.OrderBy(g => g.Name)
-                         .Paginate(page, pageSize, recCount);
+                         .Paginate(filter, recCount);
   
             return await query.ProjectTo<GenreDTO>(mapper.ConfigurationProvider)
                               .ToListAsync();
