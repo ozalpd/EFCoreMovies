@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EFCoreMovies.Entities.DTOs
+namespace EFCoreMovies.Models
 {
     public class CinemaDTO
     {

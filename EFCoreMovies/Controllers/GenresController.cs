@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using EFCoreMovies.Entities;
-using EFCoreMovies.Entities.DTOs;
+using EFCoreMovies.Models;
 using EFCoreMovies.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

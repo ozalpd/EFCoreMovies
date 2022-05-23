@@ -1,6 +1,6 @@
-﻿namespace EFCoreMovies.Entities.DTOs
+﻿namespace EFCoreMovies.Models
 {
-    public class GenreDTO
+    public class GenreThinDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }

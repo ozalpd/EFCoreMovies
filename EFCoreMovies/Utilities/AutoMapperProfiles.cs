@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using EFCoreMovies.Entities;
-using EFCoreMovies.Entities.DTOs;
+using EFCoreMovies.Models;
 
 namespace EFCoreMovies.Utilities
 {
@@ -14,6 +14,7 @@ namespace EFCoreMovies.Utilities
                 .ForMember(dto => dto.Longitude, ent => ent.MapFrom(p => p.Location.X));
             
             CreateMap<Genre, GenreDTO>();
+            CreateMap<Movie, MovieThinDTO>();
         }
     }
 }
