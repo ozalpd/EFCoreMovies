@@ -17,9 +17,9 @@ namespace EFCoreMovies.Controllers
         private IQueryable<Movie> GetMoviesQuery()
         {
             var query = dbContext.Movies
-                                 .AsNoTracking()
-                                 .Include(m => m.Genres)
-                                 .Include(m => m.MoviesActors).ThenInclude(ma => ma.Actor);
+                                  .AsNoTracking()
+                                  .Include(m => m.Genres)
+                                  .Include(m => m.MoviesActors).ThenInclude(ma => ma.Actor);
             return query;
         }
 
@@ -37,6 +37,43 @@ namespace EFCoreMovies.Controllers
             var dto = mapper.Map<MovieFullDTO>(movie);
             dto.Cinemas = dto.Cinemas.DistinctBy(c => c.Id).ToList();
             return dto;
+        }
+
+        [HttpGet("byProjection")]
+        public async Task<ActionResult> GetByProjection()
+        {
+            var query = GetMoviesQuery().GroupBy(m => m.InCinemas)
+                                        .Select(g => new
+                                        {
+                                            InCinemas = g.Key,
+                                            Count = g.Count(),
+                                            Movies = mapper.Map<List<MovieListDTO>>(g.ToList())
+                                        });
+            var groupedMovies = await query.ToListAsync();
+
+            return Ok(groupedMovies);
+        }
+
+        [HttpGet("Light{id:int}")]
+        public async Task<ActionResult> GetLight(int id)
+        {
+            var query = GetMoviesQuery();
+            var movie = await query.ProjectTo<MovieFullDTO>(mapper.ConfigurationProvider)
+                                   .FirstOrDefaultAsync(m => m.Id == id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new
+            {
+                Id = movie.Id,
+                Title = movie.Title,
+                ReleaseDate = movie.ReleaseDate,
+                Actors = movie.Actors.Select(a => a.Name).OrderBy(n => n).ToList(),
+                Cinemas = movie.Cinemas.DistinctBy(c => c.Id).Select(c => c.Name).OrderBy(n => n).ToList(),
+                Genres = movie.Genres.Select(g => g.Name).OrderBy(n => n).ToList()
+            });
         }
 
         [HttpGet]
