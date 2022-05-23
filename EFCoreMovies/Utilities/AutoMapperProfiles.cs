@@ -12,6 +12,8 @@ namespace EFCoreMovies.Utilities
             CreateMap<Cinema, CinemaDTO>()
                 .ForMember(dto => dto.Latitude, ent => ent.MapFrom(p => p.Location.Y))
                 .ForMember(dto => dto.Longitude, ent => ent.MapFrom(p => p.Location.X));
+            
+            CreateMap<Genre, GenreDTO>();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace EFCoreMovies.Controllers
         private IQueryable<Movie> GetMoviesQuery()
         {
             var query = dbContext.Movies
-                               //.AsNoTracking()
+                                 //.AsNoTracking()
                                  .Include(m => m.Genres)
                                  .Include(m => m.CinemaHalls)
                                  .Include(m => m.MoviesActors).ThenInclude(ma => ma.Actor);
@@ -42,6 +42,7 @@ namespace EFCoreMovies.Controllers
             {
                 query = from m in query
                         where m.Title.Contains(searchString)
+                           || m.Genres.Any(g => g.Name.Contains(searchString))
                            || m.CinemaHalls.Any(ch => ch.Cinema.Name.Contains(searchString))
                            || m.MoviesActors.Any(ma => ma.Actor.Name.Contains(searchString))
                         select m;
