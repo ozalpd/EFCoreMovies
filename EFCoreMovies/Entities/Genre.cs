@@ -14,6 +14,8 @@ namespace EFCoreMovies.Entities
         [Key]
         public int Id { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         [Required()]
         [MaxLength(100)]
         //[Column(name: "GenreName")]

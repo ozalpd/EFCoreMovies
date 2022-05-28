@@ -67,5 +67,28 @@ namespace EFCoreMovies.Controllers
                 return BadRequest(errors);
             }
         }
+
+        [HttpDelete("int:id")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var genre = await dbContext.Genres
+                                       .AsTracking()
+                                       .FirstOrDefaultAsync(g => g.Id == id);
+            genre.IsDeleted = true;
+            await dbContext.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPost("Undelete/{id:int}")]
+        public async Task<ActionResult> Undelete(int id)
+        {
+            var genre = await dbContext.Genres
+                                       .AsTracking()
+                                       .IgnoreQueryFilters()
+                                       .FirstOrDefaultAsync(g => g.Id == id);
+            genre.IsDeleted = false;
+            await dbContext.SaveChangesAsync();
+            return Ok(mapper.Map<GenreThinDTO>(genre));
+        }
     }
 }
