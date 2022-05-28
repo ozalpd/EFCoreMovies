@@ -1,6 +1,6 @@
 ﻿namespace EFCoreMovies.Utilities
 {
-    public class GeoQueryFilter : QueryFilter
+    public class GeoFilterParams : FilterParams
     {
         public double? Latitude { get; set; }
         public double? Longitude { get; set; }

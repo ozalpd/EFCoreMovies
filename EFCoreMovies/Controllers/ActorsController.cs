@@ -15,7 +15,7 @@ namespace EFCoreMovies.Controllers
         public ActorsController(AppDbContext context, IMapper mapper) : base(context, mapper) { }
 
         [HttpGet]
-        public async Task<IEnumerable<ActorDTO>> Get([FromQuery] QueryFilter filter)
+        public async Task<IEnumerable<ActorDTO>> Get([FromQuery] FilterParams filter)
         {
             IQueryable<Actor> query = dbContext.Actors;
             if (!string.IsNullOrEmpty(filter.SearchString))

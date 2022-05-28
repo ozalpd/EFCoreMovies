@@ -15,7 +15,7 @@ namespace EFCoreMovies.Controllers
         public GenresController(AppDbContext context, IMapper mapper) : base(context, mapper) { }
 
         [HttpGet]
-        public async Task<IEnumerable<GenreDTO>> Get([FromQuery] QueryFilter filter)
+        public async Task<IEnumerable<GenreDTO>> Get([FromQuery] FilterParams filter)
         {
             IQueryable<Genre> query = dbContext.Genres.AsNoTracking();
             if (!string.IsNullOrEmpty(filter.SearchString))

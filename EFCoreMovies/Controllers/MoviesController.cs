@@ -77,7 +77,7 @@ namespace EFCoreMovies.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<MovieListDTO>> GetList([FromQuery] QueryFilter filter)
+        public async Task<IEnumerable<MovieListDTO>> GetList([FromQuery] FilterParams filter)
         {
             var query = GetMoviesQuery();
             if (!string.IsNullOrEmpty(filter.SearchString))

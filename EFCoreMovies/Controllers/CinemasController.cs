@@ -18,7 +18,7 @@ namespace EFCoreMovies.Controllers
 
 
         [HttpGet]
-        public async Task<IEnumerable<CinemaDTO>> Get([FromQuery] GeoQueryFilter filter)
+        public async Task<IEnumerable<CinemaDTO>> Get([FromQuery] GeoFilterParams filter)
         {
             IQueryable<Cinema> query = dbContext.Cinemas;
             if (!string.IsNullOrEmpty(filter.SearchString))
