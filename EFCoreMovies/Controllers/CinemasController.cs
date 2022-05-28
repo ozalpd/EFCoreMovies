@@ -67,18 +67,33 @@ namespace EFCoreMovies.Controllers
                 var errors = ModelState.Where(e => e.Value.Errors.Count > 0);
                 return BadRequest(errors);
             }
-
-            var gemetryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
-            var cinema = mapper.Map<Cinema>(dto);
-            if (dto.Longitude.HasValue && dto.Latitude.HasValue)
+            Cinema cinema = null;
+            if (dto.Id > 0)
             {
-                cinema.Location = gemetryFactory.CreatePoint(
-                    new Coordinate(dto.Latitude.Value, dto.Longitude.Value));
+                cinema = await dbContext.Cinemas
+                                        .AsTracking()
+                                        .FirstOrDefaultAsync(c => c.Id == dto.Id);
+                mapper.Map(dto, cinema);
+            }
+            else
+            {
+                cinema = mapper.Map<Cinema>(dto);
+                dbContext.Cinemas.Add(cinema);
             }
 
-            dbContext.Cinemas.Add(cinema);
-            dbContext.SaveChanges();
-            return Ok(cinema);
+            if (dto.Longitude > 0 && dto.Latitude > 0)
+            {
+                var geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
+                cinema.Location = geometryFactory.CreatePoint(
+                    new Coordinate(dto.Latitude.Value, dto.Longitude.Value));
+            }
+            else
+            {
+                cinema.Location = null;
+            }
+
+            await dbContext.SaveChangesAsync();
+            return Ok(mapper.Map<CinemaThinDTO>(cinema));
         }
     }
 }

@@ -23,6 +23,19 @@ namespace EFCoreMovies.Utilities
                                ent.PreCondition(p => p.Location != null);
                                ent.MapFrom(p => p.Location.X);
                            });
+            CreateMap<Cinema, CinemaThinDTO>()
+                .ForMember(dto => dto.Latitude,
+                           ent =>
+                           {
+                               ent.PreCondition(p => p.Location != null);
+                               ent.MapFrom(p => p.Location.Y);
+                           })
+                .ForMember(dto => dto.Longitude,
+                           ent =>
+                           {
+                               ent.PreCondition(p => p.Location != null);
+                               ent.MapFrom(p => p.Location.X);
+                           });
 
             CreateMap<Genre, GenreDTO>();
             CreateMap<Genre, GenreThinDTO>();
