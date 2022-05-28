@@ -50,5 +50,22 @@ namespace EFCoreMovies.Controllers
                 return BadRequest(errors);
             }
         }
+
+        [HttpPost("multiple")]
+        public async Task<ActionResult> Post(GenreThinDTO[] genre)
+        {
+            if (ModelState.IsValid)
+            {
+                var entArray = mapper.Map<Genre[]>(genre);
+                await dbContext.AddRangeAsync(entArray);
+                await dbContext.SaveChangesAsync();
+                return Ok(mapper.Map<GenreThinDTO[]>(entArray));
+            }
+            else
+            {
+                var errors = ModelState.Where(e => e.Value.Errors.Count > 0);
+                return BadRequest(errors);
+            }
+        }
     }
 }
