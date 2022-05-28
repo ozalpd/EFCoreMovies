@@ -15,6 +15,7 @@ namespace EFCoreMovies.Utilities
 
             CreateMap<Genre, GenreDTO>();
             CreateMap<Genre, GenreThinDTO>();
+            CreateMap<GenreThinDTO, Genre>();
 
             CreateMap<Movie, MovieThinDTO>();
             CreateMap<Movie, MovieListDTO>()

@@ -29,9 +29,26 @@ namespace EFCoreMovies.Controllers
             int recCount = await query.CountAsync();
             query = query.OrderBy(g => g.Name)
                          .Paginate(filter, recCount);
-  
+
             return await query.ProjectTo<GenreDTO>(mapper.ConfigurationProvider)
                               .ToListAsync();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Post(GenreThinDTO genre)
+        {
+            if (ModelState.IsValid)
+            {
+                var ent = mapper.Map<Genre>(genre);
+                dbContext.Genres.Add(ent);
+                await dbContext.SaveChangesAsync();
+                return Ok(mapper.Map<GenreThinDTO>(ent));
+            }
+            else
+            {
+                var errors = ModelState.Where(e => e.Value.Errors.Count > 0);
+                return BadRequest(errors);
+            }
         }
     }
 }
