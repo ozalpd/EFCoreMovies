@@ -43,9 +43,9 @@ namespace EFCoreMovies.Controllers
                                 {
                                     Id = c.Id,
                                     Name = c.Name,
-                                    Latitude = c.Location.Y,
-                                    Longitude = c.Location.X,
-                                    Distance = (int?)Math.Round(c.Location.Distance(visitorLocation)),
+                                    Latitude = c.Location != null ? c.Location.Y : null,
+                                    Longitude = c.Location != null ? c.Location.X : null,
+                                    Distance = c.Location != null ? (int?)Math.Round(c.Location.Distance(visitorLocation)) : null,
                                     TicketPrice = c.TicketPrice
                                 });
             }
@@ -57,6 +57,28 @@ namespace EFCoreMovies.Controllers
                                 .ProjectTo<CinemaDTO>(mapper.ConfigurationProvider);
             }
             return await dtoQuery.ToListAsync();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Post(CinemaThinDTO dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Where(e => e.Value.Errors.Count > 0);
+                return BadRequest(errors);
+            }
+
+            var gemetryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
+            var cinema = mapper.Map<Cinema>(dto);
+            if (dto.Longitude.HasValue && dto.Latitude.HasValue)
+            {
+                cinema.Location = gemetryFactory.CreatePoint(
+                    new Coordinate(dto.Latitude.Value, dto.Longitude.Value));
+            }
+
+            dbContext.Cinemas.Add(cinema);
+            dbContext.SaveChanges();
+            return Ok(cinema);
         }
     }
 }
