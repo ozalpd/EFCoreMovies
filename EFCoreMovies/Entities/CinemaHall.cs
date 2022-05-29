@@ -12,6 +12,7 @@ namespace EFCoreMovies.Entities
         public int Id { get; set; }
 
         public CinemaHallType CinemaHallType { get; set; }
+        public Currency Currency { get; set; }
 
         public int CinemaId { get; set; }
         public Cinema Cinema { get; set; }
