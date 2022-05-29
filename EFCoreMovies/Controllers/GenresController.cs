@@ -27,12 +27,33 @@ namespace EFCoreMovies.Controllers
             }
 
             int recCount = await query.CountAsync();
-            query = query.OrderBy(g => g.Name)
+            query = query.OrderByDescending(g => EF.Property<DateTime>(g, "CreateDate"))
                          .Paginate(filter, recCount);
 
             return await query.ProjectTo<GenreDTO>(mapper.ConfigurationProvider)
                               .ToListAsync();
         }
+
+        [HttpGet("GetOne/{id:int}")]
+        public async Task<ActionResult> GetOne(int id)
+        {
+            var genre = await dbContext.Genres
+                                       .AsTracking()
+                                       .FirstOrDefaultAsync(g => g.Id == id);
+            if (genre == null)
+            {
+                return NotFound();
+            }
+
+            var createDate = dbContext.Entry(genre).Property<DateTime>("CreateDate");
+            return Ok(new
+            {
+                Name = genre.Name,
+                Id = genre.Id,
+                CreateDate = createDate.CurrentValue
+            });
+        }
+
 
         [HttpPost]
         public async Task<ActionResult> Post(GenreThinDTO genre)

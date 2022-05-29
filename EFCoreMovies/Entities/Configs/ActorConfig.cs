@@ -8,6 +8,9 @@ namespace EFCoreMovies.Entities.Configs
         public void Configure(EntityTypeBuilder<Actor> builder)
         {
             builder.HasIndex(p => p.Name);
+            builder.Property<DateTime>("CreateDate")
+                   .HasDefaultValueSql("GetDate()")
+                   .HasColumnType("datetime2");
         }
     }
 }
