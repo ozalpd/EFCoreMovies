@@ -17,6 +17,8 @@ namespace EFCoreMovies.Models
         [MaxLength(500)]
         public string PosterURL { get; set; }
 
+        public string ImdbURL { get; set; }
+
         //[Column(TypeName = "Date")]
         public DateTime? ReleaseDate { get; set; }
     }

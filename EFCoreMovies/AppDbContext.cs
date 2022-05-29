@@ -40,6 +40,18 @@ namespace EFCoreMovies
             //Because annotations can be used in data validations and front end
             //modelBuilder.Entity<Genre>().Property(p => p.Name).IsRequired();
 
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                foreach (var property in entityType.GetProperties().Where(p => p.ClrType == typeof(string)))
+                {
+                    //make all URL fields varchar(500)
+                    if (property.Name.Contains("URL", StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        property.SetIsUnicode(false);
+                        property.SetMaxLength(500);
+                    }
+                }
+            }
 
             SeedSampleData.Seed(modelBuilder);
         }

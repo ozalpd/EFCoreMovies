@@ -12,6 +12,8 @@ namespace EFCoreMovies.Entities
         }
 
         public string Biography { get; set; }
+        public string InstagramURL { get; set; }
+        public string TwitterURL { get; set; }
 
         [NotMapped]
         public int? Age
