@@ -13,7 +13,22 @@ namespace EFCoreMovies.Entities
 
         public string Biography { get; set; }
 
+        [NotMapped]
+        public int? Age
+        {
+            get
+            {
+                if (DateOfBirth == null)
+                    return null;
 
+                var today = DateTime.Now.Date;
+                int age = today.Year - DateOfBirth.Value.Year;
+                if (today.DayOfYear < DateOfBirth.Value.DayOfYear)
+                    age--;
+
+                return age;
+            }
+        }
         public ICollection<MovieActor> MoviesActors { get; set; }
     }
 }

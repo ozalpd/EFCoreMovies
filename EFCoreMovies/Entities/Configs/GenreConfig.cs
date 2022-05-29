@@ -7,7 +7,8 @@ namespace EFCoreMovies.Entities.Configs
     {
         public void Configure(EntityTypeBuilder<Genre> builder)
         {
-            builder.HasIndex(p => p.Name);
+            builder.HasIndex(p => p.Name)
+                   .IsUnique().HasFilter("IsDeleted=0");
             builder.HasQueryFilter(p => !p.IsDeleted);
         }
     }
