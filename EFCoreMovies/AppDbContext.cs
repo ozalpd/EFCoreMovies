@@ -7,7 +7,8 @@ namespace EFCoreMovies
 {
     public class AppDbContext : DbContext
     {
-        private const string mov = "mov";
+        private const string mov = "mov"; //schema of movie related tables
+        private const string soc = "soc"; //schema of people and social media related tables
 
         public AppDbContext(DbContextOptions options) : base(options) { }
 
@@ -36,6 +37,9 @@ namespace EFCoreMovies
             modelBuilder.Entity<MovieActor>().ToTable(name: "MoviesActors", schema: mov);
             modelBuilder.Entity<Movie>().ToTable(name: "Movies", schema: mov);
 
+            modelBuilder.Entity<Person>().ToTable(name: "People", schema: soc);
+            modelBuilder.Entity<Post>().ToTable(name: "Posts", schema: soc);
+
             //It's better way to use data annotations to set required fields or set a max lenght.
             //Because annotations can be used in data validations and front end
             //modelBuilder.Entity<Genre>().Property(p => p.Name).IsRequired();
@@ -54,6 +58,7 @@ namespace EFCoreMovies
             }
 
             SeedSampleData.Seed(modelBuilder);
+            SeedSamplePosts.Seed(modelBuilder);
         }
 
         public DbSet<Actor> Actors { get; set; }
@@ -63,5 +68,8 @@ namespace EFCoreMovies
         public DbSet<Genre> Genres { get; set; }
         public DbSet<MovieActor> MoviesActors { get; set; }
         public DbSet<Movie> Movies { get; set; }
+
+        public DbSet<Person> People { get; set; }
+        public DbSet<Post> Posts { get; set; }
     }
 }
